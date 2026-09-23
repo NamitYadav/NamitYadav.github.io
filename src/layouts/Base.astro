@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import ThemeToggle from '../components/ThemeToggle.astro';
-import { links } from '../data/cv';
+import { links, contactLinks } from '../data/cv';
 import { getPublishedPosts } from '../data/posts';
 
 interface Props {
@@ -24,16 +24,10 @@ const person = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Namit Yadav',
-  jobTitle: 'Frontend Enthusiast',
+  jobTitle: 'Frontend Tech Lead',
   url: Astro.site?.href,
   sameAs: [links.github, links.linkedin],
 };
-const contact: [string, string][] = [
-  ['Download CV (PDF)', links.cv],
-  ['Email', `mailto:${links.email}`],
-  ['GitHub', links.github],
-  ['LinkedIn', links.linkedin],
-];
 ---
 <!doctype html>
 <html lang="en" data-theme="gruvbox">
@@ -56,7 +50,7 @@ const contact: [string, string][] = [
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Namit Yadav — Frontend Enthusiast" />
+    <meta property="og:image:alt" content="Namit Yadav — Frontend Tech Lead" />
     <meta property="og:site_name" content="Namit Yadav" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#1d2021" />
@@ -79,14 +73,11 @@ const contact: [string, string][] = [
     <header class="print:hidden border-b border-zinc-200 dark:border-zinc-800">
       <nav aria-label="Main" class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
         <a href="/" class="whitespace-nowrap font-semibold text-zinc-900 hover:text-emerald-700 dark:text-zinc-100 dark:hover:text-emerald-400">namit yadav</a>
-        <div class="flex flex-wrap items-center gap-4">
-          <ul class="flex gap-4 text-sm">
-            {nav.map(([label, href]) => (
-              <li><a href={href} class="text-zinc-600 hover:text-emerald-700 dark:text-zinc-400 dark:hover:text-emerald-400">{label}</a></li>
-            ))}
-          </ul>
-          <ThemeToggle />
-        </div>
+        <ul class="flex gap-4 text-sm">
+          {nav.map(([label, href]) => (
+            <li><a href={href} class="text-zinc-600 hover:text-emerald-700 dark:text-zinc-400 dark:hover:text-emerald-400">{label}</a></li>
+          ))}
+        </ul>
       </nav>
     </header>
     <main id="main" class="mx-auto w-full max-w-3xl flex-1 px-4 pb-16">
@@ -95,11 +86,14 @@ const contact: [string, string][] = [
     <footer class="print:hidden border-t border-zinc-200 dark:border-zinc-800">
       <div class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 px-4 py-6 text-sm text-zinc-600 dark:text-zinc-400">
         <ul class="flex flex-wrap gap-4">
-          {contact.map(([label, href]) => (
+          {contactLinks.map(([label, href]) => (
             <li><a href={href} class="hover:text-emerald-700 dark:hover:text-emerald-400">{label}</a></li>
           ))}
         </ul>
-        <p>© <span id="footer-year">{new Date().getFullYear()}</span> Namit Yadav</p>
+        <div class="flex items-center gap-4">
+          <ThemeToggle />
+          <p>© <span id="footer-year">{new Date().getFullYear()}</span> Namit Yadav</p>
+        </div>
       </div>
     </footer>
     <script is:inline>

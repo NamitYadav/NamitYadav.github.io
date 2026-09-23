@@ -1,10 +1,10 @@
 ---
-title: "Consolidating 95+ data grids onto one implementation"
+title: "Migrating 45+ data grids onto one implementation"
 company: Zinier
 period: "2025 – 2026"
-summary: "An architecture decision record moving 95+ data grids across two implementations onto a single @tanstack/react-table component in the shared library, migrated in three risk-ordered phases behind a feature flag."
+summary: "An architecture decision record moving data grids from two implementations onto a single @tanstack/react-table component in the shared library, in three risk-ordered phases behind a feature flag. 45+ grids migrated so far."
 metrics:
-  - { label: "grids consolidated", value: "95+" }
+  - { label: "grids migrated", value: "45+" }
   - { label: "phases shipped", value: "2 of 3" }
   - { label: "tests on the new grid", value: "1,300+" }
 tags: [Architecture, ADR, TanStack Table, Migration]
@@ -13,7 +13,7 @@ order: 3
 
 ## Context
 
-Across six apps, tables had accumulated on two implementations: a 4,600-line class-based grid in the shared library, and a newer hooks-based table on `@tanstack/react-table` inside one app, tightly coupled to that app's data model. Around 95 grids sat on one or the other, plus copy-pasted variants.
+Across six apps, tables had accumulated on two implementations: a 4,600-line class-based grid in the shared library, and a newer hooks-based table on `@tanstack/react-table` inside one app, tightly coupled to that app's data model. Dozens of grids sat on one or the other, plus copy-pasted variants.
 
 ## Problem
 
@@ -29,7 +29,7 @@ Every grid fix, accessibility improvement or design change had to be made dozens
 
 ## Outcome
 
-Phases one and two shipped: around 45 grids on the new component, including all read-only and selection grids. Phase three is in progress, with inline editing, export and import, column filtering and an on-demand row count for high-volume grids already live, and the legacy cleanup as the final gate. The new grid carries over 1,300 unit tests across about 60 suites. No rollback trigger has fired.
+Phases one and two shipped: 45+ grids on the new component, including all read-only and selection grids. Phase three is in progress, with inline editing, export and import, column filtering and an on-demand row count for high-volume grids already live, and the legacy cleanup as the final gate. The new grid carries over 1,300 unit tests across about 60 suites. No rollback trigger has fired.
 
 ## What I'd do differently
 

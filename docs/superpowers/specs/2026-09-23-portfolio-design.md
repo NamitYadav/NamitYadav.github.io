@@ -127,7 +127,7 @@ Typed data in `src/data/cv.ts`, transcribed from the resume:
 ### 4.4 Content rules, enforced
 `scripts/verify.mjs` runs after `astro build` in CI and locally (`npm run verify`). It reads
 every `dist/**/*.html` and fails if:
-- any file contains `relocat` (case-insensitive) or the phone number digits `8826367697`;
+- any file contains `relocat` (case-insensitive) or the phone number digits;
 - any file contains `TODO(namit)`;
 - `index.html` lacks a link to `/Namit_Yadav_CV.pdf`, a `mailto:namityadav2007@gmail.com`,
   and one `/work/<slug>/` link per work entry;

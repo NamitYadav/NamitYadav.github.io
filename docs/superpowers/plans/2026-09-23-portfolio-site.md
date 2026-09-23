@@ -14,7 +14,7 @@
 
 - Site URL `https://namityadav.github.io`, `base: '/'`. Repo `NamitYadav/NamitYadav.github.io`, branch `main`.
 - **Relocation is never mentioned** anywhere in built HTML (verify fails on `/relocat/i`).
-- **Phone number never appears** (verify fails on `8826367697`).
+- **Phone number never appears** (verify fails on it).
 - Public email is `namityadav2007@gmail.com`. GitHub `https://github.com/NamitYadav`. LinkedIn `https://www.linkedin.com/in/namit1211/`.
 - CV served at `/Namit_Yadav_CV.pdf`; link text "Download CV (PDF)".
 - Work slugs are public URLs and fixed: `react-18-migration`, `feature-flags`, `data-grid-consolidation`, `module-federation`. Link form `/work/<slug>/` (trailing slash, Astro `directory` build format).
@@ -1020,7 +1020,7 @@ const description = `${titleLine}. ${summary}`;
 - [ ] **Step 5: Build and inspect**
 
 ```bash
-npm run check && npm run build && for s in react-18-migration feature-flags data-grid-consolidation module-federation; do grep -c "href=\"/work/$s/\"" dist/index.html; done && grep -c 'href="/Namit_Yadav_CV.pdf"' dist/index.html && grep -c 'mailto:namityadav2007@gmail.com' dist/index.html && grep -ci 'relocat' dist/index.html; grep -c 8826367697 dist/index.html
+npm run check && npm run build && for s in react-18-migration feature-flags data-grid-consolidation module-federation; do grep -c "href=\"/work/$s/\"" dist/index.html; done && grep -c 'href="/Namit_Yadav_CV.pdf"' dist/index.html && grep -c 'mailto:namityadav2007@gmail.com' dist/index.html && grep -ci 'relocat' dist/index.html
 ```
 Expected: the four slug counts are ≥1 each (card plus experience links; module-federation appears 3 times); CV link `2` (hero + footer); mailto `2`; the last two greps print `0`.
 
@@ -1327,7 +1327,7 @@ if (!existsSync(join(dist, 'index.html'))) {
 for (const file of walk(dist, '.html')) {
   const html = readFileSync(file, 'utf8');
   if (/relocat/i.test(html)) fail(`${file} mentions relocation`);
-  if (html.includes('8826367697')) fail(`${file} contains the phone number`);
+  if (hasPhone(html)) fail(`${file} contains the phone number`);
 }
 
 // Markdown sources, not dist: an HTML comment survives into dist but a reader
@@ -1353,7 +1353,7 @@ console.log('verify: ok');
 
 ```bash
 BAD=/private/tmp/claude-502/-Users-namit-personal/9761d5a4-0ff5-4409-a2be-f450c7bba8e1/scratchpad/baddist
-mkdir -p "$BAD/work/x" && printf '<p>Relocating soon, call 8826367697</p>' > "$BAD/index.html" && printf 'ok' > "$BAD/work/x/index.html"
+mkdir -p "$BAD/work/x" && printf '<p>Relocating soon, call <phone></p>' > "$BAD/index.html" && printf 'ok' > "$BAD/work/x/index.html"
 printf -- '---\ntitle: t\ndate: 2026-01-01\ndescription: d\ndraft: true\n---\n<!-- TODO(namit): fixture -->\n' > src/content/posts/tmp-todo.md
 DIST="$BAD" node scripts/verify.mjs; echo "exit=$?"
 rm src/content/posts/tmp-todo.md

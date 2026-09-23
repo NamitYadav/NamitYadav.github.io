@@ -1,12 +1,12 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
-import { getPublishedPosts } from '../data/posts';
+import { getPublishedPosts, writingDescription } from '../data/posts';
 
 export async function GET(context: APIContext) {
   const posts = await getPublishedPosts();
   return rss({
     title: 'Namit Yadav · Writing',
-    description: 'Notes on frontend engineering, migrations and leading teams.',
+    description: writingDescription,
     site: context.site!,
     items: posts.map((p) => ({
       title: p.data.title,

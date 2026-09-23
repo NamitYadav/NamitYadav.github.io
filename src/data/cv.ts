@@ -7,7 +7,7 @@ export type Role = {
   bullets: Bullet[];
 };
 
-export const titleLine = 'Frontend Enthusiast · 11+ years · React at scale';
+export const titleLine = 'Frontend Tech Lead · 11+ years · React at scale';
 
 export const summary =
   "Functional lead for Zinier's frontend: 15 engineers in four pods, six React apps, around 20 customer organisations. " +
@@ -22,7 +22,7 @@ export const shortDescription =
 export const stats = [
   { value: '4 of 4 pods', label: 'ship on the shared library and flag layer' },
   { value: '−30% bugs', label: 'after quality gates on every pipeline' },
-  { value: '95+ → 1', label: 'data grid implementations, decided by ADR' },
+  { value: '45+ grids', label: 'migrated onto one grid, decided by ADR' },
 ];
 
 export const principles = [
@@ -55,6 +55,14 @@ export const links = {
   cv: '/Namit_Yadav_CV.pdf',
 };
 
+// Hero buttons and footer; first entry is the primary CTA.
+export const contactLinks: [string, string][] = [
+  ['Download CV (PDF)', links.cv],
+  ['Email', `mailto:${links.email}`],
+  ['GitHub', links.github],
+  ['LinkedIn', links.linkedin],
+];
+
 export const experience: Role[] = [
   {
     company: 'Zinier',
@@ -74,7 +82,7 @@ export const experience: Role[] = [
         work: 'feature-flags',
       },
       {
-        text: 'Authored the ADR consolidating 95+ data grids onto one @tanstack/react-table implementation.',
+        text: 'Authored the ADR consolidating data grids onto one @tanstack/react-table implementation; 45+ grids migrated so far.',
         work: 'data-grid-consolidation',
       },
       {

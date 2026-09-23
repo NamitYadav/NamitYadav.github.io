@@ -19,12 +19,6 @@ export const shortDescription =
   'Frontend Tech Lead, 11+ years of React at scale. Functional lead for a 15-engineer frontend org; ' +
   'case studies on migrations, feature flags and ADRs.';
 
-export const stats = [
-  { value: '4 of 4 pods', label: 'ship on the shared library and flag layer' },
-  { value: '−30% bugs', label: 'after quality gates on every pipeline' },
-  { value: '45+ grids', label: 'migrated onto one grid, decided by ADR' },
-];
-
 export const principles = [
   {
     title: 'Decide in writing',

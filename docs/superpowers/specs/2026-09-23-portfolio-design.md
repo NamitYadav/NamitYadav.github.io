@@ -50,7 +50,7 @@ Tailwind theme CSS, fonts, Pages workflow and spec→plan→build process carry 
 | `/writing/` | Post index | All published posts, newest first. Only built when ≥1 post. |
 | `/writing/<slug>/` | Post | One per published entry in `src/content/posts/` |
 | `/Namit_Yadav_CV.pdf` | The resume | Static file in `public/`. Updating the CV = re-export PDF, replace file. |
-| `/rss.xml` | Feed of posts | `@astrojs/rss`. Only when ≥1 post. |
+| `/rss.xml` | Feed of posts | `@astrojs/rss`. Always built; empty and unlinked when there are no posts. |
 | `/sitemap-index.xml` | Sitemap | `@astrojs/sitemap` |
 | `/robots.txt` | Allow all, sitemap pointer | Static file in `public/` |
 | `/404.html` | Not found | `src/pages/404.astro`; GitHub Pages serves it for unknown paths |
@@ -136,9 +136,11 @@ every `dist/**/*.html` and fails if:
 ### 4.5 Writing (posts)
 `src/content/posts/<slug>.md` with frontmatter `title`, `date`, `description`,
 `tags: string[]`, `draft: boolean = false`. Drafts are excluded from the build entirely (index,
-pages, RSS, sitemap). The home Writing section, the `/writing/` index and `/rss.xml` are
-only generated when at least one published post exists, so v1 can launch with the folder
-empty and nothing on the site points at a blank page.
+pages, RSS, sitemap). The home Writing section, the Writing nav item, the RSS `<link>` and
+the `/writing/` index are only generated when at least one published post exists, so v1 can
+launch with the folder empty and nothing on the site points at a blank page. `/rss.xml`
+itself always builds (a static endpoint cannot opt out); with no posts it is an empty,
+unlinked feed.
 
 ## 5. Visual design
 
@@ -189,7 +191,7 @@ NamitYadav.github.io/
 │     ├─ index.astro
 │     ├─ 404.astro
 │     ├─ work/[slug].astro
-│     ├─ writing/index.astro   (returns nothing to build when no posts)
+│     ├─ writing/[...index].astro  rest route; getStaticPaths returns [] when no posts, so /writing/ is not built
 │     ├─ writing/[slug].astro
 │     └─ rss.xml.ts
 ├─ scripts/verify.mjs          §4.4

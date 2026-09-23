@@ -86,12 +86,14 @@ order: number             # card order on home
 ```
 
 Body structure, same headings in every study so they read as a set:
-**Context** · **Problem** · **Approach** · **Outcome** · **What I'd do differently**.
+**Context** · **Problem** · **Approach** · **Outcome**, plus **What I'd do differently**
+once Namit has written that lesson for a study.
 
-v1 drafts are written from the resume bullets and marked with a `<!-- TODO(namit): ... -->`
-comment wherever a detail is needed that the resume does not carry (team size, timeline,
-a specific incident, a rejected alternative). Namit fills those in before launch; the
-verify script (§4.4) fails the build while any `TODO(namit)` remains.
+v1 drafts (decision 2026-09-23: ship resume-only drafts) assert only what the resume
+carries. Details it lacks (team size, timeline, a specific incident, a rejected
+alternative) are listed as questions in the plan's handoff for Namit to fold in later. A
+`<!-- TODO(namit): ... -->` comment may be used to park an open question in a file; the
+verify script (§4.4) fails the build while any remains.
 
 Resume facts each study starts from:
 - **react-18-migration** — 6 frontend apps, React 17→18.3.1, Node 14→22, Redux 5 and
@@ -225,7 +227,7 @@ contrast already tuned in the copied gruvbox ramp, no motion beyond the theme fa
 2. `Namit_Yadav_CV.pdf`: v1 ships the current resume
    (`~/Downloads/Namit_Yadav_Resume_2026.pdf`) as-is, per Namit. The verify script only
    scans built HTML, so the PDF's contents are Namit's call. Swap the file later if wanted.
-3. Answers to the `TODO(namit)` prompts in the four case studies.
+3. Answers to the case-study questions listed in the plan's handoff (deepen the drafts later).
 4. Optionally 1–2 posts; otherwise Writing stays hidden at launch.
 
 ## 10. Later, if needed

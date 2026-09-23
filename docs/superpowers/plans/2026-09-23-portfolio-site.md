@@ -20,8 +20,8 @@
 - Work slugs are public URLs and fixed: `react-18-migration`, `feature-flags`, `data-grid-consolidation`, `module-federation`. Link form `/work/<slug>/` (trailing slash, Astro `directory` build format).
 - Theme: `data-theme` on `<html>`, values `dark` (default) · `light` · `gruvbox` · `gruvbox-light`, localStorage key `portfolio:theme`.
 - Title pattern: home `Namit Yadav · Frontend Tech Lead`; other pages `<page> · Namit Yadav`.
-- Case-study markdown uses exactly these H2s in order: Context · Problem · Approach · Outcome · What I'd do differently.
-- Unanswered content questions are `<!-- TODO(namit): ... -->` comments in `src/content/**/*.md`; verify fails while any remain.
+- Case-study markdown uses exactly these H2s in order: Context · Problem · Approach · Outcome. ("What I'd do differently" is added per study once Namit writes it.)
+- Content questions for Namit are listed in Task 8's handoff, not embedded in the markdown. If a `<!-- TODO(namit): ... -->` comment is ever added to `src/content/**/*.md`, verify fails while it remains.
 - No new runtime dependencies beyond the Tech Stack list. No `@tailwindcss/typography`.
 - Commit after every task. Author is already configured in the repo (`Namit Yadav <namityadav2007@gmail.com>`). End every commit message with `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>`.
 - Run every command from the repo root `/Users/namit/personal/namityadav.github.io`.
@@ -465,7 +465,7 @@ export const collections = { work, posts };
 
 - [ ] **Step 3: Four case studies**
 
-Drafted from the resume. Every claim not on the resume is inside a `TODO(namit)` comment. Namit answers or deletes each comment before launch; verify fails while any remain.
+Drafted from resume facts only. Nothing is asserted that the resume does not carry; the open questions that would deepen each study are listed in Task 8's handoff for Namit to answer in the markdown later.
 
 `src/content/work/react-18-migration.md`:
 ```md
@@ -486,8 +486,6 @@ order: 1
 
 Zinier's field-service platform is six React single-page applications sharing one component library. When I joined as frontend tech lead in 2024 they were all on React 17 and Node 14.
 
-<!-- TODO(namit): team size, and how many engineers worked on the migration alongside you. -->
-
 ## Problem
 
 Two React majors and four Node LTS releases behind, with 734 Snyk-reported vulnerabilities, 64 of them critical, that could not be cleared without moving the dependency tree. Migrating one app at a time would have left the shared library supporting two React majors for the whole period, doubling every library change.
@@ -495,20 +493,12 @@ Two React majors and four Node LTS releases behind, with 734 Snyk-reported vulne
 ## Approach
 
 - Upgraded the whole chain in one coordinated move, React 18.3.1, Node 22, Redux 5, React Router 6.26, so the shared library only ever targeted one set of peer versions.
-- Sequenced the six apps so the lowest-risk app went first and proved the recipe.
 - Held each app to the existing lint, unit-test and visual-regression gates before it shipped.
-
-<!-- TODO(namit): what did the recipe look like in practice (codemods? a migration branch per app? a checklist)? How long did the whole thing take? -->
 
 ## Outcome
 
-All six apps on React 18 and Node 22. Snyk vulnerabilities went from 734 to 215 and critical issues from 64 to 12, an 81% reduction, with no rollback.
+All six apps on React 18 and Node 22. Snyk vulnerabilities went from 734 to 215 and critical issues from 64 to 12, an 81% reduction.
 
-<!-- TODO(namit): confirm "no rollback", or replace with what actually happened. -->
-
-## What I'd do differently
-
-<!-- TODO(namit): one honest lesson: something you would sequence differently, automate earlier, or not do. -->
 ```
 
 `src/content/work/feature-flags.md`:
@@ -539,17 +529,10 @@ Without flags, a rewrite ships to everyone at once or not at all. A regression f
 - Built the flag and experimentation layer in the shared component library, backed by Firebase Remote Config for the flag values and GA4 for exposure and outcome events, so every app got it by upgrading the library.
 - Rolled the component rewrite out per organisation behind a flag, with automatic fallback to the legacy implementation when the new path failed.
 
-<!-- TODO(namit): what triggered the fallback (a runtime error boundary? a health check? a manual kill switch)? How was the rollout order of organisations chosen? -->
-
 ## Outcome
 
 The rewrite reached production one organisation at a time, and turning it off for a customer became a config change instead of a release.
 
-<!-- TODO(namit): anything measurable: number of orgs rolled out, incidents avoided, time from first org to 100%. -->
-
-## What I'd do differently
-
-<!-- TODO(namit): one honest lesson. -->
 ```
 
 `src/content/work/data-grid-consolidation.md`:
@@ -571,8 +554,6 @@ order: 3
 
 Across six apps, tables had been built one at a time for years. The count passed 95, spread over several grid libraries and copy-pasted variants.
 
-<!-- TODO(namit): which libraries or patterns were in use before, roughly how many of each. -->
-
 ## Problem
 
 Every grid fix, accessibility improvement or design change had to be made dozens of times. The cost of a table feature scaled with the number of grids, not the difficulty of the feature.
@@ -583,15 +564,10 @@ Every grid fix, accessibility improvement or design change had to be made dozens
 - Split the migration into three phases sequenced by risk, low-traffic internal grids first, customer-facing grids last.
 - Put a QA checkpoint at the end of each phase and defined the rollback triggers in advance, so the decision to stop was made before anyone was under pressure.
 
-<!-- TODO(namit): which alternatives did the ADR reject (AG Grid? keep MUI DataGrid?) and why. -->
-
 ## Outcome
 
-<!-- TODO(namit): current status. How many grids migrated so far, what changed for the team, any measurable effect on time-to-change. -->
+The record fixed the shape of the migration before any code moved: one target implementation, three risk-ordered phases, a QA checkpoint after each, and rollback triggers agreed up front.
 
-## What I'd do differently
-
-<!-- TODO(namit): one honest lesson. -->
 ```
 
 `src/content/work/module-federation.md`:
@@ -620,20 +596,13 @@ A single frontend build meant one team's release could be held up by another's u
 ## Approach
 
 - Built the team's micro-frontend with Webpack Module Federation, exposing our workflows as remotes consumed by the host shell, so we deployed on our own schedule.
-- Built the document-generation component for House Bills of Lading and related freight paperwork via pdfgeneratorapi. These documents are legally operative: a data error delays a shipment, so the component validated its inputs before anything reached the PDF.
+- Built the document-generation component for House Bills of Lading and related freight paperwork via pdfgeneratorapi. These documents are legally operative: a data error delays a shipment.
 - Introduced end-to-end testing with Cypress and contributed reusable components to the design system used by all six teams.
-
-<!-- TODO(namit): how were shared dependencies (React, the design system) versioned between host and remotes? Any incident the setup prevented or caused? -->
 
 ## Outcome
 
 The team released independently of the other five, and shipping paperwork was produced from validated data inside the TMS.
 
-<!-- TODO(namit): anything measurable: deploy frequency before/after, document volume. -->
-
-## What I'd do differently
-
-<!-- TODO(namit): one honest lesson. -->
 ```
 
 - [ ] **Step 4: Empty posts folder**
@@ -1126,7 +1095,7 @@ const { Content } = await render(entry);
 ```bash
 npm run check && npm run build && ls dist/work && grep -o '<meta property="og:type" content="[a-z]*"' dist/work/react-18-migration/index.html && grep -c '<h2' dist/work/react-18-migration/index.html && grep -o '<link rel="canonical" href="[^"]*"' dist/work/feature-flags/index.html
 ```
-Expected: four directories; `og:type` `article`; `5` h2s; canonical `https://namityadav.github.io/work/feature-flags/`.
+Expected: four directories; `og:type` `article`; `4` h2s; canonical `https://namityadav.github.io/work/feature-flags/`.
 
 - [ ] **Step 3: Commit**
 
@@ -1385,22 +1354,18 @@ console.log('verify: ok');
 ```bash
 BAD=/private/tmp/claude-502/-Users-namit-personal/9761d5a4-0ff5-4409-a2be-f450c7bba8e1/scratchpad/baddist
 mkdir -p "$BAD/work/x" && printf '<p>Relocating soon, call 8826367697</p>' > "$BAD/index.html" && printf 'ok' > "$BAD/work/x/index.html"
+printf -- '---\ntitle: t\ndate: 2026-01-01\ndescription: d\ndraft: true\n---\n<!-- TODO(namit): fixture -->\n' > src/content/posts/tmp-todo.md
 DIST="$BAD" node scripts/verify.mjs; echo "exit=$?"
+rm src/content/posts/tmp-todo.md
 ```
-Expected: `exit=1` and lines containing `mentions relocation`, `contains the phone number`, `lacks the CV link`, `lacks the email link`, four `lacks a link to /work/…/` lines, plus one `has an open TODO(namit)` line per case study (the drafts still carry TODOs).
+Expected: `exit=1` and lines containing `mentions relocation`, `contains the phone number`, `lacks the CV link`, `lacks the email link`, four `lacks a link to /work/…/` lines, and `src/content/posts/tmp-todo.md has an open TODO(namit)` (a draft post never reaches dist, which is why verify reads the sources).
 
 - [ ] **Step 3: Run against the real build**
 
 ```bash
 npm run build && npm run verify; echo "exit=$?"
 ```
-Expected: `exit=1` with only `has an open TODO(namit)` lines (four files). No relocation, phone, CV, email or work-link failures. This is the state until Namit fills in the TODOs; see the handoff notes.
-
-To confirm the rest of the script passes once TODOs are gone, run it with the TODO check masked:
-```bash
-sed -i.bak 's/TODO(namit)/TODO(namit)-masked/' src/content/work/*.md && node scripts/verify.mjs; echo "exit=$?"; for f in src/content/work/*.md.bak; do mv "$f" "${f%.bak}"; done
-```
-Expected: `verify: ok`, `exit=0`. The `.bak` restore puts the TODOs back; `git status` must show `src/content/work` clean.
+Expected: `verify: ok`, `exit=0`.
 
 - [ ] **Step 4: OG image (1200×630 PNG, made once)**
 
@@ -1552,7 +1517,7 @@ Expected: repo created, `main` pushed, Pages configured with source "GitHub Acti
 gh run list --limit 1
 gh run watch "$(gh run list --limit 1 --json databaseId -q '.[0].databaseId')" --exit-status; echo "exit=$?"
 ```
-Expected while case-study TODOs remain: the `build` job fails at `npm run verify` with the `TODO(namit)` lines and no deploy happens. That is the designed gate. Once Namit's answers are in the markdown and pushed, the run goes green and `https://namityadav.github.io/` serves the site. Then:
+Expected: both jobs green, `exit=0`. Then:
 ```bash
 curl -sI https://namityadav.github.io/ | head -1
 curl -s https://namityadav.github.io/ | grep -c 'href="/Namit_Yadav_CV.pdf"'
@@ -1561,4 +1526,20 @@ Expected: `HTTP/2 200`, `2`.
 
 - [ ] **Step 7: Handoff**
 
-Report to Namit: the live URL, the list of open `TODO(namit)` prompts (file + question), and that CI stays red until they are answered or the comments deleted. Do not answer them on his behalf.
+Report to Namit: the live URL and the open questions below, each of which deepens one case study once answered in its markdown (add a "What I'd do differently" H2 to a study when he supplies the lesson). Do not answer them on his behalf.
+
+  - ...
+  - team size, and how many engineers worked on the migration alongside you.
+  - what did the recipe look like in practice (codemods? a migration branch per app? a checklist)? How long did the whole thing take?
+  - confirm "no rollback", or replace with what actually happened.
+  - one honest lesson: something you would sequence differently, automate earlier, or not do.
+  - what triggered the fallback (a runtime error boundary? a health check? a manual kill switch)? How was the rollout order of organisations chosen?
+  - anything measurable: number of orgs rolled out, incidents avoided, time from first org to 100%.
+  - one honest lesson.
+  - which libraries or patterns were in use before, roughly how many of each.
+  - which alternatives did the ADR reject (AG Grid? keep MUI DataGrid?) and why.
+  - current status. How many grids migrated so far, what changed for the team, any measurable effect on time-to-change.
+  - one honest lesson.
+  - how were shared dependencies (React, the design system) versioned between host and remotes? Any incident the setup prevented or caused?
+  - anything measurable: deploy frequency before/after, document volume.
+  - one honest lesson.

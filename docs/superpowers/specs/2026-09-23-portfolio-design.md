@@ -242,7 +242,7 @@ output metrics, no scope numbers, no statement of how Namit works. Decisions:
 
 | Topic | Decision |
 |---|---|
-| Label | Title line, home `<title>`, JSON-LD `jobTitle`, OG alt: **Staff Frontend Engineer**. Official titles stay in Experience. |
+| Label | Official title kept: **Frontend Tech Lead** in the title line, home `<title>`, JSON-LD `jobTitle`, OG. Namit is not staff yet (2026-09-23); the summary carries staff-level scope so the reader infers the level. |
 | Scope numbers (public) | 15 frontend engineers, 4 pods, 7 mentees, 6 apps, ~20 customer organisations; all 4 pods on the shared library and flag layer; reported bugs −30% after quality gates. |
 | Hero stats | `4 of 4 pods` · `−30% bugs` · `95+ → 1` kept as the ADR *decision*, labelled so; delivery progress stays in the study. Snyk numbers move to the bullets. |
 | Summary | Staff voice: functional lead, writes the decisions, builds the shared platform, owns the quality gates. |

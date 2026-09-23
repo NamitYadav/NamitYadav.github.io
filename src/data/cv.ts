@@ -7,7 +7,7 @@ export type Role = {
   bullets: Bullet[];
 };
 
-export const titleLine = 'Staff Frontend Engineer · 11+ years · React at scale';
+export const titleLine = 'Frontend Tech Lead · 11+ years · React at scale';
 
 export const summary =
   "Functional lead for Zinier's frontend: 15 engineers in four pods, six React apps, around 20 customer organisations. " +
@@ -16,7 +16,7 @@ export const summary =
 // Short enough to survive a search-result snippet (~155-160 chars); the fuller
 // on-page summary above is for humans already on the site.
 export const shortDescription =
-  'Staff Frontend Engineer, 11+ years of React at scale. Functional lead for a 15-engineer frontend org; ' +
+  'Frontend Tech Lead, 11+ years of React at scale. Functional lead for a 15-engineer frontend org; ' +
   'case studies on migrations, feature flags and ADRs.';
 
 export const stats = [

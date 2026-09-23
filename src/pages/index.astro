@@ -6,7 +6,7 @@ import Stat from '../components/Stat.astro';
 import WorkCard from '../components/WorkCard.astro';
 import PostList from '../components/PostList.astro';
 import { getPublishedPosts } from '../data/posts';
-import { titleLine, summary, shortDescription, stats, principles, experience, skills, education, languages, links, contactLinks } from '../data/cv';
+import { titleLine, summary, shortDescription, stats, principles, experience, skills, education, languages, links, contactLinks, newTab } from '../data/cv';
 
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const workTitleBySlug = Object.fromEntries(work.map((w) => [w.id, w.data.title]));
@@ -23,12 +23,12 @@ const posts = (await getPublishedPosts()).slice(0, 3);
     <ul class="print:hidden mt-8 flex flex-wrap gap-3">
       {contactLinks.map(([label, href], i) => (
         <li>
-          <a href={href} class:list={[
+          <a href={href} {...newTab(href)} class:list={[
             'inline-block rounded-md border px-4 py-2 text-sm',
             i === 0
               ? 'border-emerald-700 bg-emerald-700 text-white hover:bg-emerald-800 dark:border-emerald-400 dark:bg-emerald-400 dark:text-zinc-950 dark:hover:bg-emerald-500'
               : 'border-zinc-300 text-zinc-800 hover:border-emerald-600 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-emerald-400',
-          ]}>{label}</a>
+          ]}>{label}{newTab(href).target && <span class="sr-only"> (opens in new tab)</span>}</a>
         </li>
       ))}
     </ul>

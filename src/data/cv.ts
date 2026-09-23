@@ -62,6 +62,8 @@ export const contactLinks: [string, string][] = [
   ['GitHub', links.github],
   ['LinkedIn', links.linkedin],
 ];
+// Everything but mailto (CV, GitHub, LinkedIn) opens in a new tab.
+export const newTab = (href: string) => (href.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noopener' });
 
 export const experience: Role[] = [
   {

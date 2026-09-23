@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import ThemeToggle from '../components/ThemeToggle.astro';
-import { links, contactLinks } from '../data/cv';
+import { links, contactLinks, newTab } from '../data/cv';
 import { getPublishedPosts } from '../data/posts';
 
 interface Props {
@@ -87,7 +87,7 @@ const person = {
       <div class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 px-4 py-6 text-sm text-zinc-600 dark:text-zinc-400">
         <ul class="flex flex-wrap gap-4">
           {contactLinks.map(([label, href]) => (
-            <li><a href={href} class="hover:text-emerald-700 dark:hover:text-emerald-400">{label}</a></li>
+            <li><a href={href} {...newTab(href)} class="hover:text-emerald-700 dark:hover:text-emerald-400">{label}{newTab(href).target && <span class="sr-only"> (opens in new tab)</span>}</a></li>
           ))}
         </ul>
         <div class="flex items-center gap-4">

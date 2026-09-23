@@ -2,7 +2,7 @@
 title: "Six apps from React 17 to 18 and Node 14 to 22, in one move"
 company: Zinier
 period: "2024 – 2025"
-summary: "One coordinated upgrade of framework, runtime, state and routing across six production apps, cutting Snyk-reported vulnerabilities by 71%."
+summary: "One coordinated upgrade of framework, runtime, state and routing across six production apps, taking Snyk-reported vulnerabilities from 734 to 215."
 metrics:
   - { label: "apps migrated", value: "6" }
   - { label: "Snyk vulnerabilities", value: "734 → 215" }
@@ -13,7 +13,7 @@ order: 1
 
 ## Context
 
-Zinier's field-service platform is six React single-page applications sharing one component library. When I joined as frontend tech lead in 2024 they were all on React 17 and Node 14.
+Zinier's field-service platform is six React single-page applications sharing one component library, built by four pods and used by around 20 customer organisations. When I joined as frontend tech lead in 2024 they were all on React 17 and Node 14.
 
 ## Problem
 
@@ -22,7 +22,7 @@ Two React majors and four Node LTS releases behind, with 734 Snyk-reported vulne
 ## Approach
 
 - Upgraded the whole chain in one coordinated move, React 18.3.1, Node 22, Redux 5, React Router 6.26, so the shared library only ever targeted one set of peer versions.
-- Worked alone for the first months, then brought in two junior engineers for the long tail of per-app fixes. About six months end to end.
+- Upgraded the shared library and the first app myself so the pattern was proven before anyone else touched it, then brought in two junior engineers for the long tail of per-app fixes and reviewed every one. About six months end to end.
 - Shipped to a temporary deployment first so QA could run the full regression against real data without touching the shared development environment. Moved it into the development environment once it was stable, then through the normal release train.
 - Held each app to the existing lint, unit-test and visual-regression gates before it shipped.
 

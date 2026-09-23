@@ -234,3 +234,20 @@ contrast already tuned in the copied gruvbox ramp, no motion beyond the theme fa
 
 Analytics (Plausible or GA4 tag) · contact form (Formspree) · per-page OG images ·
 German version · headshot · a `now` page · custom domain with CNAME.
+
+## 11. Staff positioning pass (2026-09-23, after review)
+
+Review found the site read as senior/lead: "Tech Lead" label everywhere, IC-voiced summary,
+output metrics, no scope numbers, no statement of how Namit works. Decisions:
+
+| Topic | Decision |
+|---|---|
+| Label | Title line, home `<title>`, JSON-LD `jobTitle`, OG alt: **Staff Frontend Engineer**. Official titles stay in Experience. |
+| Scope numbers (public) | 15 frontend engineers, 4 pods, 7 mentees, 6 apps, ~20 customer organisations; all 4 pods on the shared library and flag layer; reported bugs −30% after quality gates. |
+| Hero stats | `4 of 4 pods` · `−30% bugs` · `95+ → 1` kept as the ADR *decision*, labelled so; delivery progress stays in the study. Snyk numbers move to the bullets. |
+| Summary | Staff voice: functional lead, writes the decisions, builds the shared platform, owns the quality gates. |
+| How I work | New home section `#how-i-work` (nav item too): five principles in `cv.ts`, each traceable to a case study. |
+| Skills | Cut Git, Responsive web design, JavaScript (ES6+), "Prompt design"; add Hiring, Micro-frontends. |
+| Case studies | Snyk card summary states 734 → 215 instead of a second percentage. Scope numbers and ADR review with pod leads added. React 18 "worked alone" reframed as proving the pattern before scaling with two juniors. |
+| Fonts | Unchanged. interview-prep uses GeistMono only, so parity means mono everywhere. |
+| Out of band | GitHub profile (bio, website, location, README) is Namit's to change; text supplied in chat. `Namit_Yadav_CV.pdf` still says "Frontend engineer" and carries the relocation line and phone by Namit's earlier decision; re-export when the CV is next updated. |

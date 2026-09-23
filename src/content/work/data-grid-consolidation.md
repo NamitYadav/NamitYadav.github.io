@@ -21,10 +21,10 @@ Every grid fix, accessibility improvement or design change had to be made dozens
 
 ## Approach
 
-- Wrote the ADR: one generic grid in the shared library on `@tanstack/react-table`, decoupled from any app's model, with an adapter so the grids defined in JSON configuration and the grids written in code render through the same component. Decision, rejected alternatives and consequences written down for review before code moved.
+- Wrote the ADR: one generic grid in the shared library on `@tanstack/react-table`, decoupled from any app's model, with an adapter so the grids defined in JSON configuration and the grids written in code render through the same component. Decision, rejected alternatives and consequences written down and reviewed with the pod leads before code moved, so four pods with their own grids agreed once instead of per grid.
 - Rejected patching the legacy grid further, since it was the source of the problem, and rejected lifting the app-specific table unchanged, since its coupling would have spread to every app.
 - Split the migration into three phases by capability and risk: read-only grids first, selection and bulk actions second, inline editing with export and import last. Each phase ends at a QA checkpoint, and the plan set success criteria up front: zero functional regressions, over 80% test coverage on the new component, no more than a 10% bundle increase.
-- Every grid moves behind the feature flag from the shared library, so rollback is per grid and per organisation: remove the flag or the type from that grid's configuration, no release needed.
+- Every grid moves behind the feature flag from the shared library, so rollback is per grid and per customer organisation, around 20 of them: remove the flag or the type from that grid's configuration, no release needed.
 - Two engineers, planned as three sprints.
 
 ## Outcome

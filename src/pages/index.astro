@@ -6,7 +6,7 @@ import Stat from '../components/Stat.astro';
 import WorkCard from '../components/WorkCard.astro';
 import PostList from '../components/PostList.astro';
 import { getPublishedPosts } from '../data/posts';
-import { titleLine, summary, shortDescription, stats, experience, skills, education, languages, links } from '../data/cv';
+import { titleLine, summary, shortDescription, stats, principles, experience, skills, education, languages, links } from '../data/cv';
 
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const workTitleBySlug = Object.fromEntries(work.map((w) => [w.id, w.data.title]));
@@ -18,7 +18,7 @@ const cta: [string, string][] = [
   ['LinkedIn', links.linkedin],
 ];
 ---
-<Base title="Namit Yadav · Frontend Tech Lead" description={shortDescription}>
+<Base title="Namit Yadav · Staff Frontend Engineer" description={shortDescription}>
   <section class="py-12">
     <h1 class="text-3xl font-semibold text-zinc-900 dark:text-zinc-100">Namit Yadav</h1>
     <p class="mt-2 text-emerald-700 dark:text-emerald-400">{titleLine}</p>
@@ -45,6 +45,17 @@ const cta: [string, string][] = [
     <div class="grid gap-4 sm:grid-cols-2">
       {work.map((entry) => <WorkCard entry={entry} />)}
     </div>
+  </Section>
+
+  <Section id="how-i-work" label="How I work">
+    <dl class="space-y-6">
+      {principles.map((p) => (
+        <div>
+          <dt class="font-semibold text-zinc-900 dark:text-zinc-100">{p.title}</dt>
+          <dd class="mt-1 max-w-prose text-sm text-zinc-700 dark:text-zinc-300">{p.text}</dd>
+        </div>
+      ))}
+    </dl>
   </Section>
 
   <Section id="experience" label="Experience">

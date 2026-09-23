@@ -119,8 +119,8 @@ Typed data in `src/data/cv.ts`, transcribed from the resume:
   State & Architecture · Testing & Quality · Infrastructure & Tools · AI-assisted
   development) rendered as a labelled list, not a bar chart.
 - `education`, `languages`: one line each.
-- `links`: email, GitHub `https://github.com/NamitYadav`, LinkedIn (**input needed from
-  Namit**), CV path.
+- `links`: email, GitHub `https://github.com/NamitYadav`, LinkedIn
+  `https://www.linkedin.com/in/namit1211/`, CV path.
 
 ### 4.4 Content rules, enforced
 `scripts/verify.mjs` runs after `astro build` in CI and locally (`npm run verify`). It reads
@@ -219,9 +219,10 @@ contrast already tuned in the copied gruvbox ramp, no motion beyond the theme fa
 
 ## 9. Inputs needed from Namit before launch
 
-1. LinkedIn profile URL.
-2. `Namit_Yadav_CV.pdf` exported without the relocation line and phone number if this
-   public copy should match the site's rules (the site links whatever file is dropped in).
+1. ~~LinkedIn profile URL.~~ Provided: `https://www.linkedin.com/in/namit1211/`.
+2. `Namit_Yadav_CV.pdf`: v1 ships the current resume
+   (`~/Downloads/Namit_Yadav_Resume_2026.pdf`) as-is, per Namit. The verify script only
+   scans built HTML, so the PDF's contents are Namit's call. Swap the file later if wanted.
 3. Answers to the `TODO(namit)` prompts in the four case studies.
 4. Optionally 1–2 posts; otherwise Writing stays hidden at launch.
 

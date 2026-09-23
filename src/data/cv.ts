@@ -10,9 +10,8 @@ export type Role = {
 export const titleLine = 'Frontend Tech Lead · 11+ years · React at scale';
 
 export const summary =
-  'Frontend engineer with 11+ years building and maintaining large React single-page applications. ' +
-  'Recent work spans large-scale framework migrations, progressive-rollout and feature-flag infrastructure, ' +
-  'and automated quality gates across multi-app codebases.';
+  'I build and maintain large React single-page applications. Recent work: framework migrations at scale, ' +
+  'progressive-rollout and feature-flag infrastructure, and automated quality gates across multi-app codebases.';
 
 // Short enough to survive a search-result snippet (~155-160 chars); the fuller
 // on-page summary above is for humans already on the site.
@@ -41,15 +40,15 @@ export const experience: Role[] = [
     period: 'Jul 2024 – present',
     bullets: [
       {
-        text: 'Led migration of 6 frontend applications from React 17 to 18.3.1 and Node 14 to 22, upgrading the state and routing chain in one coordinated move (Redux 5, React Router 6.26). Snyk-reported vulnerabilities 734 → 215, critical issues down 81% (64 → 12).',
+        text: 'Led the migration of 6 apps from React 17 to 18 and Node 14 to 22 in one coordinated move; Snyk vulnerabilities 734 → 215.',
         work: 'react-18-migration',
       },
       {
-        text: 'Built feature-flag and experimentation infrastructure in the shared component library (Firebase Remote Config, GA4), shipped across three applications; used it to roll out a major component rewrite per organisation behind a flag with automatic fallback.',
+        text: 'Built feature-flag and experimentation infrastructure in the shared component library, shipped across three apps.',
         work: 'feature-flags',
       },
       {
-        text: 'Authored the ADR consolidating 95+ data grids onto a single @tanstack/react-table implementation: three phases sequenced by risk, a QA checkpoint per phase, defined rollback triggers.',
+        text: 'Authored the ADR consolidating 95+ data grids onto one @tanstack/react-table implementation.',
         work: 'data-grid-consolidation',
       },
       {
@@ -67,12 +66,11 @@ export const experience: Role[] = [
         text: "Owned frontend delivery end to end for the Process & Workflows team, one of six cross-functional teams building Forto's Transport Management System.",
       },
       {
-        text: "Built the team's micro-frontend with Webpack Module Federation, decoupling its release cycle from the other teams' and allowing independent deployment.",
+        text: "Built the team's micro-frontend with Webpack Module Federation, decoupling its release cycle from the other five teams.",
         work: 'module-federation',
       },
       {
         text: 'Built the document-generation component for shipping paperwork (House Bill of Lading and related freight documents) via pdfgeneratorapi — legally operative documents where a data error delays a shipment.',
-        work: 'module-federation',
       },
       {
         text: 'Introduced end-to-end testing with Cypress; contributed reusable components to the centralised design system used by all six teams; mentored junior engineers and ran onboarding.',

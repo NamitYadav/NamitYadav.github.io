@@ -77,8 +77,10 @@
   --color-zinc-600: #504945;
 }
 
-/* 18px on a default browser, as a percentage so a raised default scales up. */
-html { font-size: 112.5%; scroll-behavior: smooth; }
+/* 16px on phones (mono at 18px leaves ~30 chars per line at 375px), 18px from the
+   sm breakpoint. Percentages so a raised browser default still scales up. */
+html { scroll-behavior: smooth; }
+@media (min-width: 40rem) { html { font-size: 112.5%; } }
 :root { color-scheme: dark; }
 [data-theme='light'], [data-theme='gruvbox-light'] { color-scheme: light; }
 body { @apply bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 antialiased; }

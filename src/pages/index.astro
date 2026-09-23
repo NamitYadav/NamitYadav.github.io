@@ -1,6 +1,79 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Stat from '../components/Stat.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { titleLine, summary, stats, experience, skills, education, languages, links } from '../data/cv';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const cta: [string, string][] = [
+  ['Download CV (PDF)', links.cv],
+  ['Email', `mailto:${links.email}`],
+  ['GitHub', links.github],
+  ['LinkedIn', links.linkedin],
+];
+const description = `${titleLine}. ${summary}`;
 ---
-<Base title="Namit Yadav · Frontend Tech Lead" description="placeholder">
-  <p class="py-12">scaffold</p>
+<Base title="Namit Yadav · Frontend Tech Lead" description={description}>
+  <section class="py-12">
+    <h1 class="text-3xl font-semibold text-zinc-900 dark:text-zinc-100">Namit Yadav</h1>
+    <p class="mt-2 text-emerald-700 dark:text-emerald-400">{titleLine}</p>
+    <p class="mt-6 max-w-prose text-zinc-700 dark:text-zinc-300">{summary}</p>
+    <div class="mt-8 grid gap-3 sm:grid-cols-3">
+      {stats.map((s) => <Stat {...s} />)}
+    </div>
+    <ul class="print:hidden mt-8 flex flex-wrap gap-3">
+      {cta.map(([label, href], i) => (
+        <li>
+          <a href={href} class:list={[
+            'inline-block rounded-md border px-4 py-2 text-sm',
+            i === 0
+              ? 'border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700 dark:border-emerald-400 dark:bg-emerald-400 dark:text-zinc-950 dark:hover:bg-emerald-500'
+              : 'border-zinc-300 text-zinc-800 hover:border-emerald-600 dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-emerald-400',
+          ]}>{label}</a>
+        </li>
+      ))}
+    </ul>
+    <p class="hidden print:block mt-4 text-sm">{links.email} · github.com/NamitYadav · linkedin.com/in/namit1211</p>
+  </section>
+
+  <Section id="work" label="Selected work">
+    <div class="grid gap-4 sm:grid-cols-2">
+      {work.map((entry) => <WorkCard entry={entry} />)}
+    </div>
+  </Section>
+
+  <Section id="experience" label="Experience">
+    <ol class="space-y-8">
+      {experience.map((role) => (
+        <li>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+            <h3 class="font-semibold text-zinc-900 dark:text-zinc-100">{role.role} · {role.company}</h3>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400">{role.location} · {role.period}</p>
+          </div>
+          <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-zinc-700 dark:text-zinc-300">
+            {role.bullets.map((b) => (
+              <li>
+                {b.text}
+                {b.work && <> <a href={`/work/${b.work}/`} class="text-emerald-700 underline underline-offset-2 dark:text-emerald-400">Case study →</a></>}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <Section id="skills" label="Skills">
+    <dl class="grid gap-4 sm:grid-cols-2">
+      {skills.map((s) => (
+        <div>
+          <dt class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{s.group}</dt>
+          <dd class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">{s.items.join(' · ')}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="mt-8 text-sm text-zinc-500 dark:text-zinc-400">{education} · {languages}</p>
+  </Section>
 </Base>

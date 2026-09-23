@@ -1,10 +1,9 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
+import { getPublishedPosts } from '../data/posts';
 
 export async function GET(context: APIContext) {
-  const posts = (await getCollection('posts', ({ data }) => !data.draft))
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  const posts = await getPublishedPosts();
   return rss({
     title: 'Namit Yadav · Writing',
     description: 'Notes on frontend engineering, migrations and leading teams.',

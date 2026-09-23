@@ -5,21 +5,20 @@ import Section from '../components/Section.astro';
 import Stat from '../components/Stat.astro';
 import WorkCard from '../components/WorkCard.astro';
 import PostList from '../components/PostList.astro';
-import { titleLine, summary, stats, experience, skills, education, languages, links } from '../data/cv';
+import { getPublishedPosts } from '../data/posts';
+import { titleLine, summary, shortDescription, stats, experience, skills, education, languages, links } from '../data/cv';
 
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
-const posts = (await getCollection('posts', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
+const workTitleBySlug = Object.fromEntries(work.map((w) => [w.id, w.data.title]));
+const posts = (await getPublishedPosts()).slice(0, 3);
 const cta: [string, string][] = [
   ['Download CV (PDF)', links.cv],
   ['Email', `mailto:${links.email}`],
   ['GitHub', links.github],
   ['LinkedIn', links.linkedin],
 ];
-const description = `${titleLine}. ${summary}`;
 ---
-<Base title="Namit Yadav · Frontend Tech Lead" description={description}>
+<Base title="Namit Yadav · Frontend Tech Lead" description={shortDescription}>
   <section class="py-12">
     <h1 class="text-3xl font-semibold text-zinc-900 dark:text-zinc-100">Namit Yadav</h1>
     <p class="mt-2 text-emerald-700 dark:text-emerald-400">{titleLine}</p>
@@ -60,7 +59,19 @@ const description = `${titleLine}. ${summary}`;
             {role.bullets.map((b) => (
               <li>
                 {b.text}
-                {b.work && <> <a href={`/work/${b.work}/`} class="text-emerald-700 underline underline-offset-2 dark:text-emerald-400">Case study →</a></>}
+                {b.work && (
+                  <>
+                    {' '}
+                    <a
+                      href={`/work/${b.work}/`}
+                      aria-label={`Case study: ${workTitleBySlug[b.work]}`}
+                      class="text-emerald-700 underline underline-offset-2 dark:text-emerald-400"
+                    >Case study →</a>
+                    <span class="hidden print:inline text-xs text-zinc-600">
+                      {' '}({new URL(`/work/${b.work}/`, Astro.site).href})
+                    </span>
+                  </>
+                )}
               </li>
             ))}
           </ul>

@@ -14,6 +14,12 @@ export const summary =
   'Recent work spans large-scale framework migrations, progressive-rollout and feature-flag infrastructure, ' +
   'and automated quality gates across multi-app codebases.';
 
+// Short enough to survive a search-result snippet (~155-160 chars); the fuller
+// on-page summary above is for humans already on the site.
+export const shortDescription =
+  'Frontend Tech Lead with 11+ years building large-scale React applications. ' +
+  'Case studies on migrations, feature flags and grid consolidation.';
+
 export const stats = [
   { value: '6 apps', label: 'migrated React 17→18 & Node 14→22' },
   { value: '734 → 215', label: 'Snyk vulnerabilities, critical −81%' },

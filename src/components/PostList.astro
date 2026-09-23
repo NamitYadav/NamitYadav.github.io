@@ -1,14 +1,16 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-interface Props { posts: CollectionEntry<'posts'>[] }
-const { posts } = Astro.props;
+// heading: h3 under a Section's h2 on the home page, h2 directly under the /writing/ h1.
+interface Props { posts: CollectionEntry<'posts'>[]; heading?: 'h2' | 'h3' }
+const { posts, heading = 'h3' } = Astro.props;
+const Heading = heading;
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 ---
 <ul class="space-y-6">
   {posts.map((p) => (
     <li>
       <p class="text-xs text-zinc-500 dark:text-zinc-400"><time datetime={iso(p.data.date)}>{iso(p.data.date)}</time></p>
-      <h3 class="mt-1 font-semibold"><a href={`/writing/${p.id}/`} class="text-zinc-900 hover:text-emerald-700 dark:text-zinc-100 dark:hover:text-emerald-400">{p.data.title}</a></h3>
+      <Heading class="mt-1 font-semibold"><a href={`/writing/${p.id}/`} class="text-zinc-900 hover:text-emerald-700 dark:text-zinc-100 dark:hover:text-emerald-400">{p.data.title}</a></Heading>
       <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">{p.data.description}</p>
     </li>
   ))}

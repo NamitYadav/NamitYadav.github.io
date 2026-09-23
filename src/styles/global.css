@@ -69,6 +69,14 @@
   --color-amber-900: #5c4a11;
 }
 
+/* gruvbox-light only: the shared ramp's zinc-500/600 sit at ~3.2:1 and ~4.3:1 on the
+   cream background, below AA for the secondary text that uses them. Darken the two
+   steps here; the dark gruvbox theme never renders them on its own background. */
+[data-theme='gruvbox-light'] {
+  --color-zinc-500: #665c54;
+  --color-zinc-600: #504945;
+}
+
 /* 18px on a default browser, as a percentage so a raised default scales up. */
 html { font-size: 112.5%; scroll-behavior: smooth; }
 :root { color-scheme: dark; }
@@ -80,10 +88,15 @@ a, button, [role='button'] {
   transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, opacity 150ms ease;
 }
 
+/* Focus ring: emerald-700 reads on the light backgrounds (emerald-500 is ~2.4:1 there);
+   the two dark themes switch back to emerald-500. */
 @layer base {
   :focus-visible {
-    outline: 2px solid var(--color-emerald-500);
+    outline: 2px solid var(--color-emerald-700);
     outline-offset: 2px;
+  }
+  [data-theme='dark'] :focus-visible, [data-theme='gruvbox'] :focus-visible {
+    outline-color: var(--color-emerald-500);
   }
 }
 

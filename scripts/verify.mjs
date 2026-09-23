@@ -17,7 +17,8 @@ if (!existsSync(join(dist, 'index.html'))) {
 for (const file of walk(dist, '.html')) {
   const html = readFileSync(file, 'utf8');
   if (/relocat/i.test(html)) fail(`${file} mentions relocation`);
-  if (html.includes('8826367697')) fail(`${file} contains the phone number`);
+  // Strip non-digits first so a formatted paste (+91 88263 67697, 882-636-7697) is caught too.
+  if (html.replace(/\D/g, '').includes('8826367697')) fail(`${file} contains the phone number`);
 }
 
 // Markdown sources, not dist: an HTML comment survives into dist but a reader

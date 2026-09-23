@@ -35,7 +35,7 @@ const contact: [string, string][] = [
 ];
 ---
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="gruvbox">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -58,18 +58,19 @@ const contact: [string, string][] = [
     <meta property="og:image:alt" content="Namit Yadav — Frontend Tech Lead" />
     <meta property="og:site_name" content="Namit Yadav" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#09090b" />
+    <meta name="theme-color" content="#1d2021" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
     <script is:inline>
       // Runs before first paint so the page never flashes the default theme.
+      // Stored choice wins; otherwise gruvbox, in the OS's light or dark variant.
       // Key + theme->color map duplicated in ThemeToggle.astro; keep both in sync.
-      try {
-        var t = localStorage.getItem('portfolio:theme');
-        if (t === 'light' || t === 'gruvbox' || t === 'gruvbox-light') document.documentElement.dataset.theme = t;
-      } catch (e) {}
       var themeColors = { dark: '#09090b', light: '#fafafa', gruvbox: '#1d2021', 'gruvbox-light': '#fbf1c7' };
+      var t = null;
+      try { t = localStorage.getItem('portfolio:theme'); } catch (e) {}
+      if (!themeColors[t]) t = matchMedia('(prefers-color-scheme: light)').matches ? 'gruvbox-light' : 'gruvbox';
+      document.documentElement.dataset.theme = t;
       var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', themeColors[document.documentElement.dataset.theme] || themeColors.dark);
+      if (meta) meta.setAttribute('content', themeColors[t]);
     </script>
   </head>
   <body class="min-h-screen flex flex-col">

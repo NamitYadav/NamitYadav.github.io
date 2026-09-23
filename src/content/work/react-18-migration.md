@@ -22,8 +22,19 @@ Two React majors and four Node LTS releases behind, with 734 Snyk-reported vulne
 ## Approach
 
 - Upgraded the whole chain in one coordinated move, React 18.3.1, Node 22, Redux 5, React Router 6.26, so the shared library only ever targeted one set of peer versions.
+- Worked alone for the first months, then brought in two junior engineers for the long tail of per-app fixes. About six months end to end.
+- Shipped to a temporary deployment first so QA could run the full regression against real data without touching the shared development environment. Moved it into the development environment once it was stable, then through the normal release train.
 - Held each app to the existing lint, unit-test and visual-regression gates before it shipped.
+
+## What broke
+
+React 18's automatic batching changed when state updates flushed, and the data grid depended on the old timing: reads after a set-state call saw stale values, and rows rendered a step behind their data. The fix was `flushSync` at the points where the grid needs a synchronous commit, in many more places than expected. Nothing else came close.
 
 ## Outcome
 
 All six apps on React 18 and Node 22. Snyk vulnerabilities went from 734 to 215 and critical issues from 64 to 12, an 81% reduction.
+
+## What I'd do differently
+
+- Set checkpoints up front, per app and per package, so progress was visible from week one instead of being one long branch.
+- Test each package upgrade in isolation before combining them. One coordinated release was the right call for the shared library, but debugging the grid would have been faster if React, Redux and the router had each been proven on their own first.

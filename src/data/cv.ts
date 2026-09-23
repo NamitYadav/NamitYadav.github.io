@@ -66,7 +66,7 @@ export const experience: Role[] = [
         text: "Owned frontend delivery end to end for the Process & Workflows team, one of six cross-functional teams building Forto's Transport Management System.",
       },
       {
-        text: "Built the team's micro-frontend with Webpack Module Federation, decoupling its release cycle from the other five teams.",
+        text: "Built the team's micro-frontend with Webpack Module Federation; the team moved from synced releases to daily deploys, 2–3× the frequency.",
         work: 'module-federation',
       },
       {

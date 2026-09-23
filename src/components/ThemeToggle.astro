@@ -1,9 +1,9 @@
 ---
 const themes = [
-  ['dark', 'Dark'],
-  ['light', 'Light'],
   ['gruvbox', 'Gruvbox'],
   ['gruvbox-light', 'Gruvbox light'],
+  ['dark', 'Dark'],
+  ['light', 'Light'],
 ] as const;
 ---
 <label class="flex items-center gap-2 text-xs text-zinc-600 dark:text-zinc-400">
@@ -22,9 +22,9 @@ const themes = [
     // Theme->color map duplicated in Base.astro; keep both in sync.
     var themeColors = { dark: '#09090b', light: '#fafafa', gruvbox: '#1d2021', 'gruvbox-light': '#fbf1c7' };
     function sync() {
-      select.value = root.dataset.theme || 'dark';
+      select.value = root.dataset.theme || 'gruvbox';
       var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', themeColors[root.dataset.theme] || themeColors.dark);
+      if (meta) meta.setAttribute('content', themeColors[root.dataset.theme] || themeColors.gruvbox);
     }
     select.addEventListener('change', function () {
       root.dataset.theme = select.value;

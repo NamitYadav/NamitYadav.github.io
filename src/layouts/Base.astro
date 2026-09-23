@@ -1,0 +1,94 @@
+---
+import '../styles/global.css';
+import { getCollection } from 'astro:content';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import { links } from '../data/cv';
+
+interface Props {
+  title: string;
+  description: string;
+  ogType?: 'website' | 'article';
+}
+const { title, description, ogType = 'website' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/og.png', Astro.site);
+const hasPosts = (await getCollection('posts', ({ data }) => !data.draft)).length > 0;
+const nav: [string, string][] = [
+  ['Work', '/#work'],
+  ['Experience', '/#experience'],
+  ...(hasPosts ? [['Writing', '/writing/'] as [string, string]] : []),
+];
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Namit Yadav',
+  jobTitle: 'Frontend Tech Lead',
+  url: Astro.site?.href,
+  sameAs: [links.github, links.linkedin],
+};
+const contact: [string, string][] = [
+  ['Download CV (PDF)', links.cv],
+  ['Email', `mailto:${links.email}`],
+  ['GitHub', links.github],
+  ['LinkedIn', links.linkedin],
+];
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {hasPosts && <link rel="alternate" type="application/rss+xml" title="Namit Yadav · Writing" href="/rss.xml" />}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Namit Yadav" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#09090b" />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    <script is:inline>
+      // Runs before first paint so the page never flashes the default theme.
+      // Key duplicated in ThemeToggle.astro; keep the two in sync.
+      try {
+        var t = localStorage.getItem('portfolio:theme');
+        if (t === 'light' || t === 'gruvbox' || t === 'gruvbox-light') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-emerald-600 focus:px-3 focus:py-2 focus:text-white">Skip to content</a>
+    <header class="print:hidden border-b border-zinc-200 dark:border-zinc-800">
+      <nav aria-label="Main" class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3">
+        <a href="/" class="font-semibold text-zinc-900 hover:text-emerald-700 dark:text-zinc-100 dark:hover:text-emerald-400">namit yadav</a>
+        <div class="flex items-center gap-4">
+          <ul class="flex gap-4 text-sm">
+            {nav.map(([label, href]) => (
+              <li><a href={href} class="text-zinc-600 hover:text-emerald-700 dark:text-zinc-400 dark:hover:text-emerald-400">{label}</a></li>
+            ))}
+          </ul>
+          <ThemeToggle />
+        </div>
+      </nav>
+    </header>
+    <main id="main" class="mx-auto w-full max-w-3xl flex-1 px-4 pb-16">
+      <slot />
+    </main>
+    <footer class="print:hidden border-t border-zinc-200 dark:border-zinc-800">
+      <div class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 px-4 py-6 text-sm text-zinc-600 dark:text-zinc-400">
+        <ul class="flex flex-wrap gap-4">
+          {contact.map(([label, href]) => (
+            <li><a href={href} class="hover:text-emerald-700 dark:hover:text-emerald-400">{label}</a></li>
+          ))}
+        </ul>
+        <p>© {new Date().getFullYear()} Namit Yadav</p>
+      </div>
+    </footer>
+  </body>
+</html>

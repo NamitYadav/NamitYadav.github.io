@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://namityadav.github.io/sitemap-index.xml

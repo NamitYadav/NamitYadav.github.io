@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/* GeistMono Nerd Font, self-hosted from public/fonts (Nerd Fonts release, OFL — see
+   the LICENSE file beside them). One face for the whole site, so --font-sans and
+   --font-mono resolve to the same family. Weights 400/500/600 only, Latin subset. */
+@font-face {
+  font-family: 'GeistMono Nerd Font';
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/GeistMonoNerdFont-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'GeistMono Nerd Font';
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/GeistMonoNerdFont-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'GeistMono Nerd Font';
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/GeistMonoNerdFont-SemiBold.woff2') format('woff2');
+}
+
+@theme {
+  --font-sans: 'GeistMono Nerd Font', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: 'GeistMono Nerd Font', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* dark: fires for the two dark themes (dark, gruvbox) but not for light or
+   gruvbox-light, which reuse the undecorated classes as their palette. */
+@custom-variant dark (&:where([data-theme='dark'] *, [data-theme='dark'], [data-theme='gruvbox'] *, [data-theme='gruvbox']));
+
+/* Gruvbox is a palette swap and nothing else: redefining Tailwind's color variables
+   remaps every existing zinc/emerald/red/amber utility in place, so no component
+   needs to know a second theme exists. gruvbox-light shares this ramp and renders the
+   undecorated (non-dark:) classes. */
+[data-theme='gruvbox'], [data-theme='gruvbox-light'] {
+  --color-white: #fbf1c7;
+  --color-black: #1d2021;
+  --color-zinc-50: #fbf1c7;
+  --color-zinc-100: #ebdbb2;
+  --color-zinc-200: #d5c4a1;
+  --color-zinc-300: #bdae93;
+  --color-zinc-400: #a89984;
+  --color-zinc-500: #928374;
+  --color-zinc-600: #7c6f64;
+  --color-zinc-700: #504945;
+  --color-zinc-800: #3c3836;
+  --color-zinc-900: #282828;
+  --color-zinc-950: #1d2021;
+
+  --color-emerald-50: #f2f0c9;
+  --color-emerald-400: #b8bb26;
+  --color-emerald-500: #b8bb26;
+  --color-emerald-600: #98971a;
+  --color-emerald-700: #5f5c0e;
+  --color-emerald-950: #3c3a15;
+
+  --color-red-400: #ff6b5b;
+  --color-red-500: #fb4934;
+  --color-red-600: #cc241d;
+  --color-red-700: #9d0006;
+
+  --color-amber-100: #f9e2a0;
+  --color-amber-400: #fabd2f;
+  --color-amber-500: #fabd2f;
+  --color-amber-600: #d79921;
+  --color-amber-900: #5c4a11;
+}
+
+/* 18px on a default browser, as a percentage so a raised default scales up. */
+html { font-size: 112.5%; scroll-behavior: smooth; }
+:root { color-scheme: dark; }
+[data-theme='light'], [data-theme='gruvbox-light'] { color-scheme: light; }
+body { @apply bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 antialiased; }
+
+button, a, label, select, summary, [role='button'] { cursor: pointer; }
+a, button, [role='button'] {
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, opacity 150ms ease;
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-emerald-500);
+    outline-offset: 2px;
+  }
+}
+
+/* Markdown bodies (case studies, posts). Hand-written; no typography plugin. */
+.prose { @apply leading-relaxed text-zinc-800 dark:text-zinc-200; }
+.prose > * + * { margin-top: 1em; }
+.prose h2 { @apply mt-10 text-lg font-semibold text-zinc-900 dark:text-zinc-100; }
+.prose h3 { @apply mt-6 font-semibold text-zinc-900 dark:text-zinc-100; }
+.prose ul { @apply list-disc pl-6; }
+.prose ol { @apply list-decimal pl-6; }
+.prose li + li { margin-top: 0.25em; }
+.prose a { @apply text-emerald-700 underline underline-offset-2 dark:text-emerald-400; }
+.prose strong { @apply font-semibold text-zinc-900 dark:text-zinc-100; }
+.prose code { @apply rounded bg-zinc-200 px-1 py-0.5 text-[0.9em] dark:bg-zinc-800; }
+.prose pre { @apply overflow-x-auto rounded-md border border-zinc-200 bg-zinc-100 p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900; }
+.prose pre code { @apply bg-transparent p-0; }
+.prose blockquote { @apply border-l-2 border-zinc-300 pl-4 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400; }
+.prose hr { @apply border-zinc-200 dark:border-zinc-800; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* Print = fallback CV. Browsers drop backgrounds; force black on white so the
+   dark themes don't print light text on white paper. Chrome hides itself with
+   Tailwind's print:hidden at the call site. */
+@media print {
+  html { font-size: 11pt; }
+  html, body { background: #fff !important; }
+  body, body * { color: #000 !important; border-color: #999 !important; }
+  a { text-decoration: none; }
+}

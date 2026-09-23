@@ -7,7 +7,7 @@ export type Role = {
   bullets: Bullet[];
 };
 
-export const titleLine = 'Frontend Tech Lead · 11+ years · React at scale';
+export const titleLine = 'Frontend Enthusiast · 11+ years · React at scale';
 
 export const summary =
   "Functional lead for Zinier's frontend: 15 engineers in four pods, six React apps, around 20 customer organisations. " +

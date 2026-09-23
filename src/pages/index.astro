@@ -4,9 +4,13 @@ import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import Stat from '../components/Stat.astro';
 import WorkCard from '../components/WorkCard.astro';
+import PostList from '../components/PostList.astro';
 import { titleLine, summary, stats, experience, skills, education, languages, links } from '../data/cv';
 
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 const cta: [string, string][] = [
   ['Download CV (PDF)', links.cv],
   ['Email', `mailto:${links.email}`],
@@ -76,4 +80,11 @@ const description = `${titleLine}. ${summary}`;
     </dl>
     <p class="mt-8 text-sm text-zinc-500 dark:text-zinc-400">{education} · {languages}</p>
   </Section>
+
+  {posts.length > 0 && (
+    <Section id="writing" label="Writing">
+      <PostList posts={posts} />
+      <p class="mt-8 text-sm"><a href="/writing/" class="text-emerald-700 underline underline-offset-2 dark:text-emerald-400">All posts →</a></p>
+    </Section>
+  )}
 </Base>

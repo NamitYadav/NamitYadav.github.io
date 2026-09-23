@@ -57,15 +57,23 @@ const person = {
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
     <script is:inline>
       // Runs before first paint so the page never flashes the default theme.
-      // Stored choice wins; otherwise gruvbox, in the OS's light or dark variant.
-      // Key + theme->color map duplicated in ThemeToggle.astro; keep both in sync.
-      var themeColors = { dark: '#09090b', light: '#fafafa', gruvbox: '#1d2021', 'gruvbox-light': '#fbf1c7' };
-      var t = null;
-      try { t = localStorage.getItem('portfolio:theme'); } catch (e) {}
-      if (!themeColors[t]) t = matchMedia('(prefers-color-scheme: light)').matches ? 'gruvbox-light' : 'gruvbox';
-      document.documentElement.dataset.theme = t;
-      var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', themeColors[t]);
+      // Stored choice wins; otherwise gruvbox in the OS's light or dark variant,
+      // re-applied live when the OS switches. ThemeToggle calls window.applyTheme.
+      (function () {
+        var themeColors = { dark: '#09090b', light: '#fafafa', gruvbox: '#1d2021', 'gruvbox-light': '#fbf1c7' };
+        var mq = matchMedia('(prefers-color-scheme: light)');
+        window.applyTheme = function (t) {
+          if (!themeColors[t]) {
+            try { t = localStorage.getItem('portfolio:theme'); } catch (e) {}
+            if (!themeColors[t]) t = mq.matches ? 'gruvbox-light' : 'gruvbox';
+          }
+          document.documentElement.dataset.theme = t;
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', themeColors[t]);
+        };
+        window.applyTheme();
+        mq.addEventListener('change', function () { window.applyTheme(); });
+      })();
     </script>
   </head>
   <body class="min-h-screen flex flex-col">

@@ -1,5 +1,6 @@
 ---
 const themes = [
+  ['system', 'System'],
   ['gruvbox', 'Gruvbox'],
   ['gruvbox-light', 'Gruvbox light'],
   ['dark', 'Dark'],
@@ -17,20 +18,15 @@ const themes = [
 </label>
 <script is:inline>
   (function () {
-    var root = document.documentElement;
     var select = document.getElementById('theme-select');
-    // Theme->color map duplicated in Base.astro; keep both in sync.
-    var themeColors = { dark: '#09090b', light: '#fafafa', gruvbox: '#1d2021', 'gruvbox-light': '#fbf1c7' };
-    function sync() {
-      select.value = root.dataset.theme || 'gruvbox';
-      var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', themeColors[root.dataset.theme] || themeColors.gruvbox);
-    }
+    try { select.value = localStorage.getItem('portfolio:theme') || 'system'; } catch (e) {}
+    if (!select.value) select.value = 'system';
     select.addEventListener('change', function () {
-      root.dataset.theme = select.value;
-      try { localStorage.setItem('portfolio:theme', select.value); } catch (e) {}
-      sync();
+      try {
+        if (select.value === 'system') localStorage.removeItem('portfolio:theme');
+        else localStorage.setItem('portfolio:theme', select.value);
+      } catch (e) {}
+      window.applyTheme(select.value);
     });
-    sync();
   })();
 </script>

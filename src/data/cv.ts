@@ -7,7 +7,7 @@ export type Role = {
   bullets: Bullet[];
 };
 
-export const titleLine = 'Frontend Enthusiast · 12+ years · React at scale';
+export const titleLine = 'Frontend Enthusiast · 11+ years · React at scale';
 
 export const summary =
   "Functional lead for the frontend of Zinier's field-service SaaS: 15 engineers in four pods, six React apps, around 20 customer organisations. " +
@@ -17,7 +17,7 @@ export const summary =
 // Short enough to survive a search-result snippet (~155-160 chars); the fuller
 // on-page summary above is for humans already on the site.
 export const shortDescription =
-  'Frontend Tech Lead, 12+ years of React at scale. Functional lead for a 15-engineer frontend org; ' +
+  'Frontend Tech Lead, 11+ years of React at scale. Functional lead for a 15-engineer frontend org; ' +
   'case studies on migrations, feature flags and ADRs.';
 
 export const principles = [
@@ -115,6 +115,7 @@ export const experience: Role[] = [
     period: 'Dec 2019 – Oct 2020',
     bullets: [
       { text: 'Engineered the frontend for a high-scale data integration platform, maintaining >90% code coverage through TDD.' },
+      { text: 'Partnered with backend and QA to architect end-to-end features from conception to production.' },
     ],
   },
   {

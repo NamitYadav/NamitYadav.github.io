@@ -2,18 +2,12 @@
 
 /* GeistMono Nerd Font, self-hosted from public/fonts (Nerd Fonts release, OFL — see
    the LICENSE file beside them). One face for the whole site, so --font-sans and
-   --font-mono resolve to the same family. Weights 400/500/600 only, Latin subset. */
+   --font-mono resolve to the same family. Weights 400/600 only, Latin subset. */
 @font-face {
   font-family: 'GeistMono Nerd Font';
   font-weight: 400;
   font-display: swap;
   src: url('/fonts/GeistMonoNerdFont-Regular.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'GeistMono Nerd Font';
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/GeistMonoNerdFont-Medium.woff2') format('woff2');
 }
 @font-face {
   font-family: 'GeistMono Nerd Font';
@@ -27,9 +21,9 @@
   --font-mono: 'GeistMono Nerd Font', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-/* dark: fires for the two dark themes (dark, gruvbox) but not for light or
-   gruvbox-light, which reuse the undecorated classes as their palette. */
-@custom-variant dark (&:where([data-theme='dark'] *, [data-theme='dark'], [data-theme='gruvbox'] *, [data-theme='gruvbox']));
+/* dark: fires for gruvbox but not gruvbox-light, which reuses the undecorated
+   classes as its palette. */
+@custom-variant dark (&:where([data-theme='gruvbox'] *, [data-theme='gruvbox']));
 
 /* Gruvbox is a palette swap and nothing else: redefining Tailwind's color variables
    remaps every existing zinc/emerald/red/amber utility in place, so no component
@@ -82,7 +76,7 @@
 html { scroll-behavior: smooth; }
 @media (min-width: 40rem) { html { font-size: 112.5%; } }
 :root { color-scheme: dark; }
-[data-theme='light'], [data-theme='gruvbox-light'] { color-scheme: light; }
+[data-theme='gruvbox-light'] { color-scheme: light; }
 body { @apply bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 antialiased; }
 
 button, a, label, select, summary, [role='button'] { cursor: pointer; }
@@ -90,14 +84,14 @@ a, button, [role='button'] {
   transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease, opacity 150ms ease;
 }
 
-/* Focus ring: emerald-700 reads on the light backgrounds (emerald-500 is ~2.4:1 there);
-   the two dark themes switch back to emerald-500. */
+/* Focus ring: emerald-700 reads on the light background (emerald-500 is ~2.4:1 there);
+   the dark theme switches back to emerald-500. */
 @layer base {
   :focus-visible {
     outline: 2px solid var(--color-emerald-700);
     outline-offset: 2px;
   }
-  [data-theme='dark'] :focus-visible, [data-theme='gruvbox'] :focus-visible {
+  [data-theme='gruvbox'] :focus-visible {
     outline-color: var(--color-emerald-500);
   }
 }

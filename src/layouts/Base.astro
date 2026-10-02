@@ -60,7 +60,7 @@ const person = {
       // Stored choice wins; otherwise gruvbox in the OS's light or dark variant,
       // re-applied live when the OS switches. ThemeToggle calls window.applyTheme.
       (function () {
-        var themeColors = { dark: '#09090b', light: '#fafafa', gruvbox: '#1d2021', 'gruvbox-light': '#fbf1c7' };
+        var themeColors = { gruvbox: '#1d2021', 'gruvbox-light': '#fbf1c7' };
         var mq = matchMedia('(prefers-color-scheme: light)');
         window.applyTheme = function (t) {
           if (!themeColors[t]) {

@@ -5,8 +5,8 @@ period: "2024 – 2025"
 summary: "Flag and experiment infrastructure built once in the shared library; every frontend pod ships on it, rolling out a major component rewrite per customer organisation with automatic fallback."
 metrics:
   - { label: "pods shipping on it", value: "4 of 4" }
-  - { label: "rollout unit", value: "per customer org" }
-  - { label: "fallback", value: "automatic" }
+  - { label: "customer orgs targeted one by one", value: "~20" }
+  - { label: "apps consuming it", value: "3" }
 tags: [Feature flags, Progressive delivery, Firebase, GA4]
 order: 2
 ---

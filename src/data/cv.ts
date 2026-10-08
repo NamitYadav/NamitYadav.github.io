@@ -156,4 +156,4 @@ export const skills = [
 ];
 
 export const education = 'B.Tech (CSE), Inderprastha Engineering College, Ghaziabad · 2010 – 2014';
-export const languages = 'English, Hindi';
+export const languages = 'English, Hindi, German (basic)';

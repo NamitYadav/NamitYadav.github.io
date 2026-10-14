@@ -2,9 +2,9 @@
 title: "A team micro-frontend with Webpack Module Federation"
 company: Forto
 period: "2020 – 2024"
-summary: "Decoupled the Process & Workflows team's release cycle from five other teams inside Forto's Transport Management System, and built the component that generates legally operative shipping documents."
+summary: "Decoupled the Process & Workflows team's release cycle from five other teams inside Forto's Transport Management System, moving the team from synced releases to daily deploys."
 metrics:
-  - { label: "teams in the TMS", value: "6" }
+  - { label: "deploy cadence", value: "daily" }
   - { label: "release frequency", value: "2–3×" }
   - { label: "to first independent deploy", value: "4 months" }
 tags: [Micro-frontends, Module Federation, Webpack, Logistics]
@@ -21,13 +21,11 @@ A single frontend build meant one team's release could be held up by another's u
 
 ## Approach
 
-- Built the team's micro-frontend with Webpack Module Federation, exposing our workflows as remotes consumed by the host shell, so we deployed on our own schedule. Two frontend engineers, about four months from decision to the first independent production deploy.
-- Built the document-generation component for House Bills of Lading and related freight paperwork via pdfgeneratorapi. These documents are legally operative: a data error delays a shipment.
-- Introduced end-to-end testing with Cypress and contributed reusable components to the design system used by all six teams.
+Built the team's micro-frontend with Webpack Module Federation, exposing our workflows as remotes consumed by the host shell, so we deployed on our own schedule. Two frontend engineers, about four months from decision to the first independent production deploy.
 
 ## Outcome
 
-The team released independently of the other five and started deploying every day instead of waiting for a cross-team sync, two to three times the previous frequency. Shipping paperwork was produced from validated data inside the TMS.
+The team released independently of the other five and started deploying every day instead of waiting for a cross-team sync, two to three times the previous frequency.
 
 ## What I'd do differently
 

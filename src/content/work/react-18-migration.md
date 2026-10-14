@@ -17,7 +17,7 @@ Zinier's field-service platform is six React single-page applications sharing on
 
 ## Problem
 
-Two React majors and four Node LTS releases behind, with 734 Snyk-reported vulnerabilities, 64 of them critical, that could not be cleared without moving the dependency tree. Migrating one app at a time would have left the shared library supporting two React majors for the whole period, doubling every library change.
+A React major and four Node LTS releases behind, with 734 Snyk-reported vulnerabilities, 64 of them critical, that could not be cleared without moving the dependency tree. Migrating one app at a time would have left the shared library supporting two React majors for the whole period, doubling every library change.
 
 ## Approach
 

@@ -25,6 +25,9 @@ const person = {
   '@type': 'Person',
   name: 'Namit Yadav',
   jobTitle: 'Frontend Tech Lead',
+  worksFor: { '@type': 'Organization', name: 'Zinier' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Inderprastha Engineering College' },
+  knowsAbout: ['React', 'TypeScript', 'Frontend architecture', 'Micro-frontends', 'Feature flags', 'Technical leadership'],
   url: Astro.site?.href,
   sameAs: [links.github, links.linkedin],
 };
@@ -55,6 +58,8 @@ const person = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#1d2021" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    <!-- Cookie-free page views; count.js skips localhost. Contact links send click events. -->
+    <script is:inline data-goatcounter="https://namit-yadav.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
     <script is:inline>
       // Runs before first paint so the page never flashes the default theme.
       // Stored choice wins; otherwise gruvbox in the OS's light or dark variant,
@@ -95,7 +100,7 @@ const person = {
       <div class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 px-4 py-6 text-sm text-zinc-600 dark:text-zinc-400">
         <ul class="flex flex-wrap gap-4">
           {contactLinks.map(([label, href]) => (
-            <li><a href={href} {...newTab(href)} class="hover:text-emerald-700 dark:hover:text-emerald-400">{label}{newTab(href).target && <span class="sr-only"> (opens in new tab)</span>}</a></li>
+            <li><a href={href} {...newTab(href)} data-goatcounter-click={`footer: ${label}`} class="hover:text-emerald-700 dark:hover:text-emerald-400">{label}{newTab(href).target && <span class="sr-only"> (opens in new tab)</span>}</a></li>
           ))}
         </ul>
         <div class="flex items-center gap-4">

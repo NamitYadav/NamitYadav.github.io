@@ -1,5 +1,5 @@
 // Content rules from the spec (§4.4). Node only, no dependencies.
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { createHash } from 'node:crypto';
 
@@ -26,10 +26,20 @@ if (!existsSync(join(dist, 'index.html'))) {
   process.exit(1);
 }
 
+const ids = (html) => new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]));
+const isFile = (f) => existsSync(f) && statSync(f).isFile();
+
 for (const file of walk(dist, '.html')) {
   const html = readFileSync(file, 'utf8');
   if (/relocat/i.test(html)) fail(`${file} mentions relocation`);
   if (hasPhone(html)) fail(`${file} contains the phone number`);
+  // Internal links (/path or #id) must land on a built file, and a #fragment on an id in it.
+  for (const [, href] of html.matchAll(/\bhref="((?:\/(?!\/)|#)[^"]*)"/g)) {
+    const [path, hash] = href.split('#');
+    const target = path === '' ? file : [join(dist, path), join(dist, path, 'index.html')].find(isFile);
+    if (!target) fail(`${file} links to missing ${href}`);
+    else if (hash && target.endsWith('.html') && !ids(readFileSync(target, 'utf8')).has(hash)) fail(`${file} links to missing anchor ${href}`);
+  }
 }
 
 // Markdown sources, not dist: an HTML comment survives into dist but a reader

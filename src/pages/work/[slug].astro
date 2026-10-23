@@ -5,11 +5,12 @@ import Base from '../../layouts/Base.astro';
 import Stat from '../../components/Stat.astro';
 
 export async function getStaticPaths() {
-  const work = await getCollection('work');
-  return work.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+  // The last case study wraps to the first, so every page ends on a next read.
+  return work.map((entry, i) => ({ params: { slug: entry.id }, props: { entry, next: work[(i + 1) % work.length] } }));
 }
-interface Props { entry: CollectionEntry<'work'> }
-const { entry } = Astro.props;
+interface Props { entry: CollectionEntry<'work'>; next: CollectionEntry<'work'> }
+const { entry, next } = Astro.props;
 const { title, company, period, summary, metrics, tags } = entry.data;
 const { Content } = await render(entry);
 ---
@@ -29,6 +30,9 @@ const { Content } = await render(entry);
     <div class="prose mt-10">
       <Content />
     </div>
-    <p class="mt-12"><a href="/#work" class="text-emerald-700 underline underline-offset-2 dark:text-emerald-400">← All work</a></p>
+    <nav aria-label="Case studies" class="mt-12 flex flex-wrap justify-between gap-4 print:hidden">
+      <a href="/#work" class="text-emerald-700 underline underline-offset-2 dark:text-emerald-400">← All work</a>
+      <a href={`/work/${next.id}/`} class="text-emerald-700 underline underline-offset-2 dark:text-emerald-400">Next: {next.data.title} →</a>
+    </nav>
   </article>
 </Base>

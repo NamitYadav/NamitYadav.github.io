@@ -155,5 +155,23 @@ export const skills = [
   { group: 'AI-assisted development', items: ['Codemods', 'Agent-assisted migrations and refactors'] },
 ];
 
+// Small public repos with live demos. Kept apart from the case studies: these show code, not scope.
+export const sideProjects = [
+  {
+    name: 'NASA Media Gallery',
+    text: "Infinite-scroll browser for NASA's image and video library: a windowed grid, paged search that aborts stale requests on every filter change, and a linkable dialog viewer.",
+    stack: ['React 19', 'TypeScript', 'TanStack Virtual'],
+    demo: 'https://namityadav.github.io/nasa-gallery/',
+    repo: 'https://github.com/NamitYadav/nasa-gallery',
+  },
+  {
+    name: 'Rock Paper Scissors',
+    text: 'Player vs computer, or computer vs computer. All the rules live in one pure, tested reducer, and the score persists between visits.',
+    stack: ['React 19', 'TypeScript', 'Vite'],
+    demo: 'https://namityadav.github.io/rock-paper-scissors/',
+    repo: 'https://github.com/NamitYadav/rock-paper-scissors',
+  },
+];
+
 export const education = 'B.Tech (CSE), Inderprastha Engineering College, Ghaziabad · 2010 – 2014';
 export const languages = 'English, Hindi, German (basic)';

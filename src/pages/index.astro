@@ -5,7 +5,7 @@ import Section from '../components/Section.astro';
 import WorkCard from '../components/WorkCard.astro';
 import PostList from '../components/PostList.astro';
 import { getPublishedPosts } from '../data/posts';
-import { titleLine, summary, shortDescription, principles, experience, skills, education, languages, links, contactLinks, newTab } from '../data/cv';
+import { titleLine, summary, shortDescription, principles, experience, skills, sideProjects, education, languages, links, contactLinks, newTab } from '../data/cv';
 
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const workTitleBySlug = Object.fromEntries(work.map((w) => [w.id, w.data.title]));
@@ -91,6 +91,28 @@ const posts = (await getPublishedPosts()).slice(0, 3);
       ))}
     </dl>
     <p class="mt-8 text-sm text-zinc-500 dark:text-zinc-400">{education} · {languages}</p>
+  </Section>
+
+  <Section id="side-projects" label="Side projects">
+    <ul class="grid gap-6 sm:grid-cols-2">
+      {sideProjects.map((p) => (
+        <li>
+          <h3 class="font-semibold text-zinc-900 dark:text-zinc-100">{p.name}</h3>
+          <p class="mt-1 text-sm text-zinc-700 dark:text-zinc-300">{p.text}</p>
+          <p class="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{p.stack.join(' · ')}</p>
+          <p class="mt-2 flex gap-4 text-sm">
+            {[['Live demo', p.demo], ['Code', p.repo]].map(([label, href]) => (
+              <a
+                href={href}
+                {...newTab(href)}
+                data-goatcounter-click={`side project: ${p.name} ${label}`}
+                class="text-emerald-700 underline underline-offset-2 dark:text-emerald-400"
+              >{label}<span class="sr-only"> for {p.name} (opens in new tab)</span></a>
+            ))}
+          </p>
+        </li>
+      ))}
+    </ul>
   </Section>
 
   {posts.length > 0 && (

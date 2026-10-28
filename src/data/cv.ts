@@ -159,14 +159,14 @@ export const skills = [
 export const sideProjects = [
   {
     name: 'NASA Media Gallery',
-    text: "Infinite-scroll browser for NASA's image and video library: a windowed grid, paged search that aborts stale requests on every filter change, and a linkable dialog viewer.",
+    text: "Infinite-scroll browser for NASA's image and video library: a windowed grid, paged search that aborts stale requests on every filter change, filters you can share as a link, and a linkable dialog viewer.",
     stack: ['React 19', 'TypeScript', 'TanStack Virtual'],
     demo: 'https://namityadav.github.io/nasa-gallery/',
     repo: 'https://github.com/NamitYadav/nasa-gallery',
   },
   {
     name: 'Rock Paper Scissors',
-    text: 'Player vs computer, or computer vs computer. All the rules live in one pure, tested reducer, and the score persists between visits.',
+    text: 'Best-of-five against the computer, or watch two computers play. Throw with a click or the R, P and S keys. The rules live in one pure, tested reducer, and the match and its round history survive a reload.',
     stack: ['React 19', 'TypeScript', 'Vite'],
     demo: 'https://namityadav.github.io/rock-paper-scissors/',
     repo: 'https://github.com/NamitYadav/rock-paper-scissors',

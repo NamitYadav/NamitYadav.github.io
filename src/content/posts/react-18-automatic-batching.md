@@ -3,7 +3,7 @@ title: "The React 18 change that broke our data grid"
 date: 2026-10-28
 description: "Upgrading six apps to React 18, the one thing that really broke was automatic batching: a class-based grid that read its own state right after setting it. What changed, how to find it, and when flushSync is the right fix."
 tags: [React, Migration]
-draft: true
+draft: false
 ---
 
 We moved six production apps from React 17 to 18 in one coordinated upgrade, along with Node, Redux and React Router. I expected the router or the Redux upgrade to hurt. The thing that actually broke was a single behaviour change in React itself, and it broke the component that sits on almost every screen: the data grid.

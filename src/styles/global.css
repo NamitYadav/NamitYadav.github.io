@@ -108,7 +108,8 @@ a, button, [role='button'] {
 .prose a { @apply text-emerald-700 underline underline-offset-2 dark:text-emerald-400; }
 .prose strong { @apply font-semibold text-zinc-900 dark:text-zinc-100; }
 .prose code { @apply rounded bg-zinc-200 px-1 py-0.5 text-[0.9em] dark:bg-zinc-800; }
-.prose pre { @apply overflow-x-auto rounded-md border border-zinc-200 bg-zinc-100 p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900; }
+/* Wrap rather than scroll: a scrolling block needs to be keyboard-focusable (axe: scrollable-region-focusable). */
+.prose pre { @apply whitespace-pre-wrap break-words rounded-md border border-zinc-200 bg-zinc-100 p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900; }
 .prose pre code { @apply bg-transparent p-0; }
 .prose blockquote { @apply border-l-2 border-zinc-300 pl-4 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400; }
 .prose hr { @apply border-zinc-200 dark:border-zinc-800; }
